@@ -11,7 +11,7 @@ interface FlatlistPokemonProps {
     data: []
 }
 
-export const FlatlistPokemon: React.FC<FlatlistPokemonProps> = observer(props => {
+export const PokemonListComponent: React.FC<FlatlistPokemonProps> = observer(props => {
     const { style, data } = props
     const navigation = useNavigation()
     const renderItem = ({ item }) => {

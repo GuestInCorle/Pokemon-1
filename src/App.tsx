@@ -13,7 +13,7 @@ const App = () => {
     <>
       <StatusBar translucent={true} backgroundColor={"transparent"} />
       <NavigationContainer>
-        <Stack.Navigator headerMode={'screen'} >
+        <Stack.Navigator headerMode={'screen'}>
           <Stack.Screen name='PokemonList' component={PokemonListScreen} options={{ headerShown: false }} />
           <Stack.Screen name='Pokemon' component={PokemonScreen} options={{
             headerTransparent: true,
