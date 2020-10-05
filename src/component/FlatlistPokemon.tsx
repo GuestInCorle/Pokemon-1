@@ -39,7 +39,7 @@ export const FlatlistPokemon: React.FC<FlatlistPokemonProps> = observer( props =
         )
     }
 
-    return <View style={style}>
+    return <View style={{paddingTop: 30}}>
         <FlatList
         showsVerticalScrollIndicator={false}
             data={data}

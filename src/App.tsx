@@ -30,17 +30,22 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { PokemonList } from './screen/PokemonList';
 import { Pokemon } from './screen/Pokemon';
 
+
 declare const global: { HermesInternal: null | {} };
 const Stack = createStackNavigator();
 
 const App = () => {
   return (
     <>
-      <StatusBar barStyle="dark-content" />
+      <StatusBar translucent={true} backgroundColor={"transparent"} />
       <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name='PokemonList' component={PokemonList} />
-          <Stack.Screen name='Pokemon' component={Pokemon} />
+        <Stack.Navigator  headerMode={'screen'} >
+          <Stack.Screen  name='PokemonList' component={PokemonList} options={{headerShown: false}} />
+          <Stack.Screen name='Pokemon' component={Pokemon} options={{
+            headerTransparent: true,
+            headerStatusBarHeight: 10,
+            
+          }}/>
         </Stack.Navigator>
       </NavigationContainer>
 

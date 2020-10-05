@@ -36,7 +36,7 @@ export const Pokemon: React.FC<PokemonProps> = observer(props => {
                     <Text style={styles.title}>Тип </Text>
                     <Text style={styles.text}>{pokemonStore.keyPokemon.type}</Text>
                 </View>
-                <Text style={styles.title}>Описание </Text>
+                <Text style={styles.title}>Описание: </Text>
                 <Text style={styles.text}>{pokemonStore.keyPokemon.description}</Text>
             </View>
         </ScrollView>
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: 'rgba(128,128,128,0.2)',
         borderRadius: 15,
-        marginTop: 2,
+        marginTop: 60,
         marginBottom: 10,
         marginHorizontal: 10,
         paddingVertical: 10,
