@@ -9,7 +9,7 @@ interface PokemonListProps {
 }
 
 
-export const PokemonList: React.FC<PokemonListProps> = observer(props => {
+export const PokemonListScreen: React.FC<PokemonListProps> = observer(props => {
     const { style } = props
 
     useEffect(()=>{

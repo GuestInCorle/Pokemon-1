@@ -8,7 +8,7 @@ interface PokemonProps {
     style?: StyleProp<ViewStyle>
 }
 
-export const Pokemon: React.FC<PokemonProps> = observer(props => {
+export const PokemonScreen: React.FC<PokemonProps> = observer(props => {
     const { style } = props
     const image = 'https://gabbyapp.com/' + pokemonStore.keyPokemon.picture
     return <>
