@@ -14,12 +14,13 @@ interface FlatlistPokemonProps {
 export const PokemonListComponent: React.FC<FlatlistPokemonProps> = observer(props => {
     const { style, data } = props
     const navigation = useNavigation()
-    const renderItem = ({ item }) => {
+
+    const renderItem = ({ item,index }) => {
         const image = 'https://gabbyapp.com/' + item.picture
         return (
             <View>
                 <TouchableOpacity onPress={() => {
-                    pokemonStore.changeKeyPokemon(item)
+                    pokemonStore.changeKeyPokemon(index)
                     navigation.navigate('Pokemon')
                 }}>
                     <View style={styles.conteiner}>

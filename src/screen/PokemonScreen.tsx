@@ -2,7 +2,7 @@ import { observer } from 'mobx-react'
 import React from 'react'
 import { StyleProp, ViewStyle, View, Image, StyleSheet, Text } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
-import { pokemonJson, pokemonStore } from '../store/pokemonStore'
+import { pokemonStore } from '../store/pokemonStore'
 
 
 type KeyValueComponentProps = {
@@ -22,7 +22,8 @@ const KeyValueComponent: React.FC<KeyValueComponentProps> = observer((props) => 
 })
 
 export const PokemonScreen: React.FC = observer(() => {
-    const image = 'https://gabbyapp.com/' + pokemonStore.keyPokemon.picture
+    const pokemonStoreDataKey = pokemonStore.dataPokemon[pokemonStore.keyPokemon]
+    const image = 'https://gabbyapp.com/' + pokemonStoreDataKey.picture
 
     return <>
         <ScrollView showsVerticalScrollIndicator={false}>
@@ -31,13 +32,13 @@ export const PokemonScreen: React.FC = observer(() => {
                     source={{ uri: image }}
                     style={styles.image}
                 />
-                <Text style={styles.title}>{pokemonStore.keyPokemon.name}</Text>
+                <Text style={styles.title}>{pokemonStoreDataKey.name}</Text>
             </View>
             <View style={styles.conteinerDescription}>
-                <KeyValueComponent title={'Вес'} value={pokemonStore.keyPokemon.weight}/>
-                <KeyValueComponent title={'Рост'} value={pokemonStore.keyPokemon.height}/>
-                <KeyValueComponent title={'Тип'} value={pokemonStore.keyPokemon.type}/>
-                <KeyValueComponent style={{flexDirection: 'column'}} title="Описание" value={pokemonStore.keyPokemon.description} />
+                <KeyValueComponent title={'Вес'} value={pokemonStoreDataKey.weight}/>
+                <KeyValueComponent title={'Рост'} value={pokemonStoreDataKey.height}/>
+                <KeyValueComponent title={'Тип'} value={pokemonStoreDataKey.type}/>
+                <KeyValueComponent style={{flexDirection: 'column'}} title="Описание" value={pokemonStoreDataKey.description} />
             </View>
         </ScrollView>
     </>
