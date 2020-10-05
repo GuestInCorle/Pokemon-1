@@ -4,35 +4,29 @@ import { StyleProp, ViewStyle, View, Image, StyleSheet, Text } from 'react-nativ
 import { ScrollView } from 'react-native-gesture-handler'
 import { pokemonJson, pokemonStore } from '../store/pokemonStore'
 
-interface PokemonProps {
-    style?: StyleProp<ViewStyle>
-}
 
-export const PokemonScreen: React.FC<PokemonProps> = observer(props => {
-    const { style } = props
+export const PokemonScreen: React.FC = observer(() => {
     const image = 'https://gabbyapp.com/' + pokemonStore.keyPokemon.picture
+
     return <>
         <ScrollView showsVerticalScrollIndicator={false}>
             <View style={styles.conteiner}>
                 <Image
                     source={{ uri: image }}
-                    style={{
-                        width: 200,
-                        height: 200,
-                    }}
+                    style={styles.image}
                 />
                 <Text style={styles.title}>{pokemonStore.keyPokemon.name}</Text>
             </View>
             <View style={styles.conteinerDescription}>
-                <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
+                <View style={styles.row}>
                     <Text style={styles.title}>Вес </Text>
                     <Text style={styles.text}>{pokemonStore.keyPokemon.weight}</Text>
                 </View>
-                <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
+                <View style={styles.row}>
                     <Text style={styles.title}>Рост </Text>
                     <Text style={styles.text}>{pokemonStore.keyPokemon.height}</Text>
                 </View>
-                <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
+                <View style={styles.row}>
                     <Text style={styles.title}>Тип </Text>
                     <Text style={styles.text}>{pokemonStore.keyPokemon.type}</Text>
                 </View>
@@ -42,6 +36,7 @@ export const PokemonScreen: React.FC<PokemonProps> = observer(props => {
         </ScrollView>
     </>
 })
+
 const styles = StyleSheet.create({
     conteiner: {
         justifyContent: 'center',
@@ -74,4 +69,12 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         textAlign: "justify",
     },
+    image: {
+        width: 200,
+        height: 200,
+    },
+    row: {
+        justifyContent: 'space-between', 
+        flexDirection: 'row',
+    }
 })
