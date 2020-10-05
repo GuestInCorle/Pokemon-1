@@ -16,7 +16,6 @@ const App = () => {
         <Stack.Navigator headerMode={'screen'}>
           <Stack.Screen name='PokemonList' component={PokemonListScreen} options={{ headerShown: false }} />
           <Stack.Screen name='Pokemon' component={PokemonScreen} options={{
-            headerTransparent: true,
             headerStatusBarHeight: 10,
           }} />
         </Stack.Navigator>

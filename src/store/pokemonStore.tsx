@@ -1,41 +1,38 @@
 import { action, makeObservable, observable } from 'mobx'
 import { StyleProp, ViewStyle, View } from 'react-native'
+import { Pokemon } from './Pokemon'
 
 
 class PokemonStore {
     keyPokemon: number = 0
-    dataPokemon: [] = []
+    dataPokemon: Pokemon[] = []
 
-    changeKeyPokemon = (index: number) => {
+    setKeyPokemon = (index: number) => {
         this.keyPokemon = index
     }
-    changeDataPokemon = (data: []) => {
-        this.dataPokemon = data
-    }
-
     refresh = async () => {
         const result = await fetchPokemon()
-        this.changeDataPokemon(result)
+        this.dataPokemon = result
     }
 
     constructor() {
         makeObservable(this, {
             dataPokemon: observable,
             keyPokemon: observable,
-            changeKeyPokemon: action,
-            changeDataPokemon: action,
+            setKeyPokemon: action,
             refresh: action,
         })
     }
 }
 export const pokemonStore = new PokemonStore()
 
-export const fetchPokemon = async () => {
+export const fetchPokemon = async (): Promise<Pokemon[]> => {
     try {
         const response = await fetch('https://gabbyapp.com/pockemons/data.json')
         const json = await response.json()
-        return (json)
+        return json
     } catch (error) {
-        return console.error()
+        console.error(error)
+        return []
     }
 }
