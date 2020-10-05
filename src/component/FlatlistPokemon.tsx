@@ -1,6 +1,8 @@
 import { useNavigation } from '@react-navigation/native'
+import { observer } from 'mobx-react'
 import React from 'react'
 import { StyleProp, ViewStyle, View, Text, Image, TouchableOpacity, FlatList, StyleSheet } from 'react-native'
+import { pokemonStore } from '../store/pokemonStore'
 
 
 
@@ -9,14 +11,15 @@ interface FlatlistPokemonProps {
     data: []
 }
 
-export const FlatlistPokemon: React.FC<FlatlistPokemonProps> = props => {
+export const FlatlistPokemon: React.FC<FlatlistPokemonProps> = observer( props => {
     const { style, data } = props
     const navigation = useNavigation()
-    const renderItem = ({ item, index }) => {
+    const renderItem = ({ item}) => {
         const image = 'https://gabbyapp.com/' + item.picture
         return (
             <View>
                 <TouchableOpacity onPress={() => {
+                    pokemonStore.changeKeyPokemon(item)
                     navigation.navigate('Pokemon')
                 }}>
                     <View style={styles.conteiner}>
@@ -42,9 +45,8 @@ export const FlatlistPokemon: React.FC<FlatlistPokemonProps> = props => {
             data={data}
             renderItem={renderItem}
         />
-
     </View>
-}
+})
 
 const styles = StyleSheet.create({
     conteiner: {

@@ -1,22 +1,22 @@
+import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
 import { StyleProp, ViewStyle, View } from 'react-native'
 import { FlatlistPokemon } from '../component/FlatlistPokemon'
-import { getPokemon } from '../store/pokemonStore'
+import { getPokemon, pokemonJson } from '../store/pokemonStore'
 
 interface PokemonListProps {
     style?: StyleProp<ViewStyle>
 }
 
 
-export const PokemonList: React.FC<PokemonListProps> = props => {
+export const PokemonList: React.FC<PokemonListProps> = observer(props => {
     const { style } = props
-    const [data,setData] = useState([])
 
     useEffect(()=>{
-        getPokemon(setData)
+        getPokemon()
     },[])
 
     return <View style={style}>
-        <FlatlistPokemon data={data} />
+        <FlatlistPokemon data={pokemonJson.dataPokemon} />
     </View>
-}
+})
