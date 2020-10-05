@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native'
 import React from 'react'
-import { StyleProp, ViewStyle, View, Text, Image, TouchableOpacity, FlatList } from 'react-native'
+import { StyleProp, ViewStyle, View, Text, Image, TouchableOpacity, FlatList, StyleSheet } from 'react-native'
 
 
 
@@ -13,21 +13,23 @@ export const FlatlistPokemon: React.FC<FlatlistPokemonProps> = props => {
     const { style, data } = props
     const navigation = useNavigation()
     const renderItem = ({ item, index }) => {
-        const image = 'https://gabbyapp.com/'+item.picture
+        const image = 'https://gabbyapp.com/' + item.picture
         return (
             <View>
                 <TouchableOpacity onPress={() => {
                     navigation.navigate('Pokemon')
                 }}>
-                    <View>
+                    <View style={styles.conteiner}>
                         <Image
-                            source={{uri: image}}
+                            source={{ uri: image }}
+                            resizeMode={"center"}
+                            resizeMethod={'scale'}
                             style={{
-                                width: 100,
-                                height: 100,
+                                width: 200,
+                                height: 200,
                             }}
                         />
-                        <Text>{item.name}</Text>
+                        <Text style={styles.title}>{item.name}</Text>
                     </View>
                 </TouchableOpacity>
             </View>
@@ -36,9 +38,28 @@ export const FlatlistPokemon: React.FC<FlatlistPokemonProps> = props => {
 
     return <View style={style}>
         <FlatList
+        showsVerticalScrollIndicator={false}
             data={data}
             renderItem={renderItem}
         />
 
     </View>
 }
+
+const styles = StyleSheet.create({
+    conteiner: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(128,128,128,0.2)',
+        borderRadius: 15,
+        marginTop: 2,
+        marginBottom: 10,
+        marginHorizontal: 10,
+
+    },
+    title:{
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginBottom: 10,
+    }
+})
