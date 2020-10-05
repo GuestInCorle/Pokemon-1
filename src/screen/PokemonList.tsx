@@ -17,6 +17,6 @@ export const PokemonList: React.FC<PokemonListProps> = props => {
     },[])
 
     return <View style={style}>
-        <FlatlistPokemon data={data}/>
+        <FlatlistPokemon data={data} />
     </View>
 }
