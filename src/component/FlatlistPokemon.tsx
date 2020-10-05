@@ -11,10 +11,10 @@ interface FlatlistPokemonProps {
     data: []
 }
 
-export const FlatlistPokemon: React.FC<FlatlistPokemonProps> = observer( props => {
+export const FlatlistPokemon: React.FC<FlatlistPokemonProps> = observer(props => {
     const { style, data } = props
     const navigation = useNavigation()
-    const renderItem = ({ item}) => {
+    const renderItem = ({ item }) => {
         const image = 'https://gabbyapp.com/' + item.picture
         return (
             <View>
@@ -39,9 +39,9 @@ export const FlatlistPokemon: React.FC<FlatlistPokemonProps> = observer( props =
         )
     }
 
-    return <View style={{paddingTop: 30}}>
+    return <View style={{ paddingTop: 30 }}>
         <FlatList
-        showsVerticalScrollIndicator={false}
+            showsVerticalScrollIndicator={false}
             data={data}
             renderItem={renderItem}
         />
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 10,
 
     },
-    title:{
+    title: {
         fontSize: 20,
         fontWeight: 'bold',
         marginBottom: 10,
