@@ -5,6 +5,22 @@ import { ScrollView } from 'react-native-gesture-handler'
 import { pokemonJson, pokemonStore } from '../store/pokemonStore'
 
 
+type KeyValueComponentProps = {
+    title: string
+    value: string
+    style?: StyleProp<ViewStyle>
+}
+
+const KeyValueComponent: React.FC<KeyValueComponentProps> = observer((props) => {
+    const {title, value, style} = props
+    return (
+        <View style={[styles.row, style]}> 
+            <Text style={styles.title}>{title}</Text>
+            <Text style={styles.text}>{value}</Text>
+        </View>
+    )
+})
+
 export const PokemonScreen: React.FC = observer(() => {
     const image = 'https://gabbyapp.com/' + pokemonStore.keyPokemon.picture
 
@@ -18,20 +34,10 @@ export const PokemonScreen: React.FC = observer(() => {
                 <Text style={styles.title}>{pokemonStore.keyPokemon.name}</Text>
             </View>
             <View style={styles.conteinerDescription}>
-                <View style={styles.row}>
-                    <Text style={styles.title}>Вес </Text>
-                    <Text style={styles.text}>{pokemonStore.keyPokemon.weight}</Text>
-                </View>
-                <View style={styles.row}>
-                    <Text style={styles.title}>Рост </Text>
-                    <Text style={styles.text}>{pokemonStore.keyPokemon.height}</Text>
-                </View>
-                <View style={styles.row}>
-                    <Text style={styles.title}>Тип </Text>
-                    <Text style={styles.text}>{pokemonStore.keyPokemon.type}</Text>
-                </View>
-                <Text style={styles.title}>Описание: </Text>
-                <Text style={styles.text}>{pokemonStore.keyPokemon.description}</Text>
+                <KeyValueComponent title={'Вес'} value={pokemonStore.keyPokemon.weight}/>
+                <KeyValueComponent title={'Рост'} value={pokemonStore.keyPokemon.height}/>
+                <KeyValueComponent title={'Тип'} value={pokemonStore.keyPokemon.type}/>
+                <KeyValueComponent style={{flexDirection: 'column'}} title="Описание" value={pokemonStore.keyPokemon.description} />
             </View>
         </ScrollView>
     </>
@@ -74,7 +80,7 @@ const styles = StyleSheet.create({
         height: 200,
     },
     row: {
-        justifyContent: 'space-between', 
+        justifyContent: 'space-between',
         flexDirection: 'row',
     }
 })
