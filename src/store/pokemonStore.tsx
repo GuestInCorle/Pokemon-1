@@ -4,13 +4,25 @@ import { Pokemon } from './Pokemon'
 
 
 class PokemonStore {
+    constructor() {
+        makeObservable(this, {
+            dataPokemon: observable,
+            keyPokemon: observable,
+            setKeyPokemon: action,
+            refresh: action,
+            favoritePokemon: observable,
+            changeFavoritePokemon: action,
+            favoritePokemonList: computed,
+            // favoriteCount: computed
+        })
+    }
     keyPokemon: number = 0
     dataPokemon: Pokemon[] = []
 
     favoritePokemon: Record<string, boolean> = {}
 
     get favoritePokemonList() {
-        return this.dataPokemon.filter(pokemon => this.isFavorite(pokemon))
+        return this.dataPokemon.filter(pokemon => this.favoritePokemon[pokemon.name])
     }
 
     get favoriteCount() {
@@ -24,24 +36,9 @@ class PokemonStore {
         const result = await fetchPokemon()
         this.dataPokemon = result
     }
-    isFavorite = (item: Pokemon) => {
-        return this.favoritePokemon[item.name]
-    }
+
     changeFavoritePokemon = (item: Pokemon) => {
         this.favoritePokemon[item.name] = !this.favoritePokemon[item.name]
-    }
-    constructor() {
-        makeObservable(this, {
-            dataPokemon: observable,
-            keyPokemon: observable,
-            setKeyPokemon: action,
-            refresh: action,
-            favoritePokemon: observable,
-            changeFavoritePokemon: action,
-            isFavorite: action,
-            favoritePokemonList: computed,
-            favoriteCount: computed
-        })
     }
 }
 export const pokemonStore = new PokemonStore()

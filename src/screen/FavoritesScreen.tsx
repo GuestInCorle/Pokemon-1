@@ -10,7 +10,7 @@ interface FavoritesScreenProps {
 
 export const FavoritesScreen: React.FC<FavoritesScreenProps> = observer(props => {
     const { style } = props
-
+    console.log(pokemonStore.favoritePokemonList, 'pokemonStore.favoritePokemonList')
     return <View style={style}>
         <PokemonListComponent data={pokemonStore.favoritePokemonList} />
     </View>
