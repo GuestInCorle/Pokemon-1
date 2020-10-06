@@ -48,7 +48,7 @@ export const PokemonView: React.FC<PokemonViewProps> = observer(({ item, index }
 export const PokemonListComponent: React.FC<FlatlistPokemonProps> = observer(props => {
     const { style, data } = props
 
-    return <View style={{ paddingTop: 30 }}>
+    return <View style={{ paddingTop: 15 }}>
         <FlatList
             showsVerticalScrollIndicator={false}
             data={data}

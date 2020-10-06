@@ -17,8 +17,14 @@ export const PokemonListScreen: React.FC<PokemonListProps> = observer(props => {
         pokemonStore.refresh()
     }, [])
 
-    return <View style={style}>
+    return <View style={styles.container}>
         <FavoritesButtonComponent />
         <PokemonListComponent data={pokemonStore.dataPokemon} />
     </View>
+})
+
+const styles = StyleSheet.create({
+    container: {
+        paddingTop: 20
+    }
 })

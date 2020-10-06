@@ -1,4 +1,3 @@
-
 import React, { RefCallback } from 'react'
 import { StyleProp, ViewStyle, View } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'

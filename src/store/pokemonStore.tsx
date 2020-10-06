@@ -13,7 +13,7 @@ class PokemonStore {
             favoritePokemon: observable,
             changeFavoritePokemon: action,
             favoritePokemonList: computed,
-            // favoriteCount: computed
+            favoriteCount: computed
         })
     }
     keyPokemon: number = 0

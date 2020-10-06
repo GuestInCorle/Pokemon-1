@@ -21,7 +21,7 @@ export const FavoritesButtonComponent: React.FC<FavoritesButtonComponentProps> =
             onPress={() => navigation.navigate('Favorites')}
         >
             <Icon name='star' size={25} color='#065' />
-            {/* {!!pokemonStore.favoritePokemonList.length && <Text>{pokemonStore.favoritePokemonList.length }</Text>} */}
+            {!!pokemonStore.favoriteCount && <Text>{pokemonStore.favoriteCount}</Text>}
         </TouchableOpacity>
     </View>
 })
