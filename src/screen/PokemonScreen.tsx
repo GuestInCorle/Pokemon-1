@@ -12,9 +12,9 @@ type KeyValueComponentProps = {
 }
 
 const KeyValueComponent: React.FC<KeyValueComponentProps> = observer((props) => {
-    const {title, value, style} = props
+    const { title, value, style } = props
     return (
-        <View style={[styles.row, style]}> 
+        <View style={[styles.row, style]}>
             <Text style={styles.title}>{title}</Text>
             <Text style={styles.text}>{value}</Text>
         </View>
@@ -35,10 +35,10 @@ export const PokemonScreen: React.FC = observer(() => {
                 <Text style={styles.title}>{pokemonStoreDataKey.name}</Text>
             </View>
             <View style={styles.conteinerDescription}>
-                <KeyValueComponent title={'Вес'} value={pokemonStoreDataKey.weight}/>
-                <KeyValueComponent title={'Рост'} value={pokemonStoreDataKey.height}/>
-                <KeyValueComponent title={'Тип'} value={pokemonStoreDataKey.type}/>
-                <KeyValueComponent style={{flexDirection: 'column'}} title="Описание" value={pokemonStoreDataKey.description} />
+                <KeyValueComponent title={'Вес'} value={pokemonStoreDataKey.weight} />
+                <KeyValueComponent title={'Рост'} value={pokemonStoreDataKey.height} />
+                <KeyValueComponent title={'Тип'} value={pokemonStoreDataKey.type} />
+                <KeyValueComponent style={{ flexDirection: 'column' }} title="Описание" value={pokemonStoreDataKey.description} />
             </View>
         </ScrollView>
     </>
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: 'rgba(128,128,128,0.2)',
         borderRadius: 15,
-       marginTop: 10,
+        marginTop: 10,
         marginBottom: 10,
         marginHorizontal: 10,
         paddingVertical: 10,

@@ -13,12 +13,12 @@ interface PokemonListProps {
 export const PokemonListScreen: React.FC<PokemonListProps> = observer(props => {
     const { style } = props
 
-    useEffect(()=>{
-        pokemonStore.refresh() 
-    },[])
+    useEffect(() => {
+        pokemonStore.refresh()
+    }, [])
 
     return <View style={style}>
-        <FavoritesButtonComponent/>
+        <FavoritesButtonComponent />
         <PokemonListComponent data={pokemonStore.dataPokemon} />
     </View>
 })

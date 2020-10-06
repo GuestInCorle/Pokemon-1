@@ -1,5 +1,3 @@
-export type nameIcon = ['star-o', 'star']
-
 export type Pokemon = {
   picture: string,
   name: string,

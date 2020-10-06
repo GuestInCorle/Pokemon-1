@@ -15,9 +15,9 @@ export const FavoriteIconComponent: React.FC<FavoriteIconComponentProps> = obser
     const { style, item } = props
 
     return <View style={style}>
-            <Icon name={pokemonStore.favoritePokemon[item.name] ? 'star' : 'star-o'} size={25} color='#065' onPress={() => {
-                pokemonStore.changeFavoritePokemon(item)
-                console.log('favorite', pokemonStore.favoritePokemon)
-            }} />
-        </View>
+        <Icon name={pokemonStore.favoritePokemon[item.name] ? 'star' : 'star-o'} size={25} color='#065' onPress={() => {
+            pokemonStore.changeFavoritePokemon(item)
+            console.log('favorite', pokemonStore.favoritePokemon)
+        }} />
+    </View>
 })

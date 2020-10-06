@@ -18,25 +18,19 @@ export type PokemonViewProps = {
     index: number
 }
 
-export const PokemonView: React.FC<PokemonViewProps> = observer(({item, index}) => {
+export const PokemonView: React.FC<PokemonViewProps> = observer(({ item, index }) => {
     const navigation = useNavigation()
     const image = 'https://gabbyapp.com/' + item.picture
     return (
-        <View> 
+        <View>
             <TouchableOpacity onPress={() => {
                 pokemonStore.setKeyPokemon(index)
                 navigation.navigate('Pokemon')
             }}>
 
                 <View style={styles.conteiner}>
-                    <View
-                        style={styles.buttonFavorites}
-                    >
+                    <View style={styles.buttonFavorites}>
                         <FavoriteIconComponent item={item} />
-                        {/* <Icon name={pokemonStore.favoritePokemon[item.name]? 'star': 'star-o'} size={25} color='#065' onPress={() => {
-                            pokemonStore.changeFavoritePokemon(item)
-                            console.log('favorite', pokemonStore.favoritePokemon)
-                        }} /> */}
                     </View>
                     <Image
                         source={{ uri: image }}
@@ -58,7 +52,7 @@ export const PokemonListComponent: React.FC<FlatlistPokemonProps> = observer(pro
         <FlatList
             showsVerticalScrollIndicator={false}
             data={data}
-            renderItem={({item, index}) => <PokemonView index={index} item={item} />}
+            renderItem={({ item, index }) => <PokemonView index={index} item={item} />}
         />
     </View>
 })
