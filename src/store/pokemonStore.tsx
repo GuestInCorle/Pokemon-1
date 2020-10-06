@@ -1,4 +1,4 @@
-import {action, computed, makeObservable, observable} from 'mobx';
+import {action, computed, flow, makeObservable, observable} from 'mobx';
 import {Pokemon} from './Pokemon';
 
 class PokemonStore {
@@ -7,7 +7,7 @@ class PokemonStore {
       dataPokemon: observable,
       keyPokemon: observable,
       setKeyPokemon: action,
-      refresh: action,
+      refresh: flow,
       favoritePokemon: observable,
       changeFavoritePokemon: action,
       favoritePokemonList: computed,
@@ -32,9 +32,10 @@ class PokemonStore {
   setKeyPokemon = (index: number) => {
     this.keyPokemon = index;
   };
-  refresh = async () => {
-    this.dataPokemon = await fetchPokemon();
-  };
+
+  *refresh() {
+    this.dataPokemon = yield fetchPokemon();
+  }
 
   changeFavoritePokemon = (item: Pokemon) => {
     this.favoritePokemon[item.name] = !this.favoritePokemon[item.name];
