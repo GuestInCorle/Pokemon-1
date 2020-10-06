@@ -1,7 +1,8 @@
 import { useNavigation } from '@react-navigation/native'
 import { observer } from 'mobx-react'
-import React, { useCallback, useMemo } from 'react'
+import React, { useCallback, useMemo, useRef, useState } from 'react'
 import { StyleProp, ViewStyle, View, Text, Image, TouchableOpacity, FlatList, StyleSheet } from 'react-native'
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { Pokemon } from '../store/Pokemon'
 import { pokemonStore } from '../store/pokemonStore'
@@ -13,6 +14,7 @@ interface FlatlistPokemonProps {
 
 export const PokemonListComponent: React.FC<FlatlistPokemonProps> = observer(props => {
     const { style, data } = props
+    let refIcon = useRef<Icon>(null)
     const navigation = useNavigation()
 
     const renderItem = useCallback(({ item, index }) => {
@@ -27,9 +29,13 @@ export const PokemonListComponent: React.FC<FlatlistPokemonProps> = observer(pro
                     <View style={styles.conteiner}>
                         <TouchableOpacity
                             style={styles.buttonFavorites}
-                            onPress={() => { }}
+                            onPress={() => {
+                                //pokemonStore.addFavoritePokemon(item)
+                                pokemonStore.removeFavoritePokemon(item)
+                                console.log('favorite', pokemonStore.favoritePokemon)
+                            }}
                         >
-                            <Icon name='star-o' size={25} color='#065' />
+                            <Icon name={'star'} size={25} color='#065' />
                         </TouchableOpacity>
                         <Image
                             source={{ uri: image }}
