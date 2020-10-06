@@ -1,26 +1,30 @@
 import { useNavigation } from '@react-navigation/native'
+import { observer } from 'mobx-react'
 import React from 'react'
-import { TouchableOpacity } from 'react-native'
+import { Text, TouchableOpacity } from 'react-native'
 import { StyleProp, ViewStyle, View, StyleSheet } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
+import { pokemonStore } from '../store/pokemonStore'
 
 interface FavoritesButtonComponentProps {
     style?: StyleProp<ViewStyle>
 }
 
-export const FavoritesButtonComponent: React.FC<FavoritesButtonComponentProps> = props => {
+export const FavoritesButtonComponent: React.FC<FavoritesButtonComponentProps> = observer(props => {
     const { style } = props
     const navigation = useNavigation()
 
+    console.log("render ", pokemonStore.favoriteCount)
     return <View style={styles.container}>
         <TouchableOpacity
             style={styles.containerImage}
             onPress={() => navigation.navigate('Favorites')}
         >
             <Icon name='star' size={25} color='#065' />
+            {/* {!!pokemonStore.favoritePokemonList.length && <Text>{pokemonStore.favoritePokemonList.length }</Text>} */}
         </TouchableOpacity>
     </View>
-}
+})
 
 const styles = StyleSheet.create({
     containerImage: {

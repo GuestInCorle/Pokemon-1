@@ -1,4 +1,4 @@
-import { action, makeObservable, observable } from 'mobx'
+import { action, computed, makeObservable, observable } from 'mobx'
 import { StyleProp, ViewStyle, View } from 'react-native'
 import { Pokemon } from './Pokemon'
 
@@ -6,8 +6,16 @@ import { Pokemon } from './Pokemon'
 class PokemonStore {
     keyPokemon: number = 0
     dataPokemon: Pokemon[] = []
-    favoritePokemon: Pokemon[] = []
 
+    favoritePokemon: Record<string, boolean> = {}
+
+    get favoritePokemonList() {
+        return this.dataPokemon.filter(pokemon => this.isFavorite(pokemon))
+    }
+
+    get favoriteCount() {
+        return this.favoritePokemonList.length
+    }
 
     setKeyPokemon = (index: number) => {
         this.keyPokemon = index
@@ -16,16 +24,11 @@ class PokemonStore {
         const result = await fetchPokemon()
         this.dataPokemon = result
     }
-    favorite = (item: Pokemon) => {
-        if (this.favoritePokemon.find((namePokemon) => { return namePokemon.name === item.name })) { return true } else return false
+    isFavorite = (item: Pokemon) => {
+        return this.favoritePokemon[item.name]
     }
-    addFavoritePokemon = (item: Pokemon) => {
-        if (this.favoritePokemon.find((namePokemon) => { return namePokemon.name === item.name })) { return (console.log('Уже существует')) } else { return this.favoritePokemon.push(item) }
-    }
-    removeFavoritePokemon = (item: Pokemon) => {
-        this.favoritePokemon = this.favoritePokemon.filter((namePokemon) => {
-            return namePokemon.name !== item.name
-        })
+    changeFavoritePokemon = (item: Pokemon) => {
+        this.favoritePokemon[item.name] = !this.favoritePokemon[item.name]
     }
     constructor() {
         makeObservable(this, {
@@ -34,15 +37,14 @@ class PokemonStore {
             setKeyPokemon: action,
             refresh: action,
             favoritePokemon: observable,
-            addFavoritePokemon: action,
-            removeFavoritePokemon: action,
-            favorite: action
-
+            changeFavoritePokemon: action,
+            isFavorite: action,
+            favoritePokemonList: computed,
+            favoriteCount: computed
         })
     }
 }
 export const pokemonStore = new PokemonStore()
-
 export const fetchPokemon = async (): Promise<Pokemon[]> => {
     try {
         const response = await fetch('https://gabbyapp.com/pockemons/data.json')

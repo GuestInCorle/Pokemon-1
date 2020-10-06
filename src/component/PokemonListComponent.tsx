@@ -13,56 +13,52 @@ interface FlatlistPokemonProps {
     data: Pokemon[]
 }
 
+export type PokemonViewProps = {
+    item: Pokemon
+    index: number
+}
+
+export const PokemonView: React.FC<PokemonViewProps> = observer(({item, index}) => {
+    const navigation = useNavigation()
+    const image = 'https://gabbyapp.com/' + item.picture
+    return (
+        <View> 
+            <TouchableOpacity onPress={() => {
+                pokemonStore.setKeyPokemon(index)
+                navigation.navigate('Pokemon')
+            }}>
+
+                <View style={styles.conteiner}>
+                    <View
+                        style={styles.buttonFavorites}
+                    >
+                        <FavoriteIconComponent item={item} />
+                        {/* <Icon name={pokemonStore.favoritePokemon[item.name]? 'star': 'star-o'} size={25} color='#065' onPress={() => {
+                            pokemonStore.changeFavoritePokemon(item)
+                            console.log('favorite', pokemonStore.favoritePokemon)
+                        }} /> */}
+                    </View>
+                    <Image
+                        source={{ uri: image }}
+                        resizeMode={"center"}
+                        resizeMethod={'scale'}
+                        style={styles.containerImage}
+                    />
+                    <Text style={styles.title}>{item.name}</Text>
+                </View>
+            </TouchableOpacity>
+        </View>
+    )
+})
+
 export const PokemonListComponent: React.FC<FlatlistPokemonProps> = observer(props => {
     const { style, data } = props
-    let refIcon = useRef<Icon>(null)
-    const navigation = useNavigation()
-    const [isFavorite, setFavorite] = useState(0)
-    useEffect(() => {
-        setFavorite(r => r + 1)
-    }, [pokemonStore.favoritePokemon])
-
-    const renderItem = useCallback(({ item, index }) => {
-
-
-        const image = 'https://gabbyapp.com/' + item.picture
-        return (
-            <View>
-                <TouchableOpacity onPress={() => {
-                    pokemonStore.setKeyPokemon(index)
-                    navigation.navigate('Pokemon')
-                }}>
-
-                    <View style={styles.conteiner}>
-                        <TouchableOpacity
-                            style={styles.buttonFavorites}
-                            onPress={() => {
-                                pokemonStore.favorite(item) ? pokemonStore.removeFavoritePokemon(item) : pokemonStore.addFavoritePokemon(item)
-                                console.log('favorite', pokemonStore.favoritePokemon)
-                            }}
-                        >
-                            <FavoriteIconComponent item={pokemonStore.favorite(item)}/>
-                            {/* <Icon name={pokemonStore.favorite(item) ? 'star' : 'star-o'} size={25} color='#065' /> */}
-
-                        </TouchableOpacity>
-                        <Image
-                            source={{ uri: image }}
-                            resizeMode={"center"}
-                            resizeMethod={'scale'}
-                            style={styles.containerImage}
-                        />
-                        <Text style={styles.title}>{item.name}</Text>
-                    </View>
-                </TouchableOpacity>
-            </View>
-        )
-    }, [])
 
     return <View style={{ paddingTop: 30 }}>
         <FlatList
             showsVerticalScrollIndicator={false}
             data={data}
-            renderItem={renderItem}
+            renderItem={({item, index}) => <PokemonView index={index} item={item} />}
         />
     </View>
 })
