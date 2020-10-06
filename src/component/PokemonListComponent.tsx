@@ -63,6 +63,7 @@ export const PokemonListComponent: React.FC<FlatListPokemonProps> = observer(
         <FlatList
           showsVerticalScrollIndicator={false}
           data={data}
+          keyExtractor={(item, index) => String(index)}
           renderItem={({item, index}) => (
             <PokemonView index={index} item={item} />
           )}
