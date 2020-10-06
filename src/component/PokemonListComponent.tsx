@@ -2,6 +2,7 @@ import { useNavigation } from '@react-navigation/native'
 import { observer } from 'mobx-react'
 import React, { useCallback, useMemo } from 'react'
 import { StyleProp, ViewStyle, View, Text, Image, TouchableOpacity, FlatList, StyleSheet } from 'react-native'
+import Icon from 'react-native-vector-icons/FontAwesome'
 import { Pokemon } from '../store/Pokemon'
 import { pokemonStore } from '../store/pokemonStore'
 
@@ -14,7 +15,7 @@ export const PokemonListComponent: React.FC<FlatlistPokemonProps> = observer(pro
     const { style, data } = props
     const navigation = useNavigation()
 
-    const renderItem = useCallback(({item, index}) => {
+    const renderItem = useCallback(({ item, index }) => {
         const image = 'https://gabbyapp.com/' + item.picture
         return (
             <View>
@@ -22,15 +23,19 @@ export const PokemonListComponent: React.FC<FlatlistPokemonProps> = observer(pro
                     pokemonStore.setKeyPokemon(index)
                     navigation.navigate('Pokemon')
                 }}>
+
                     <View style={styles.conteiner}>
+                        <TouchableOpacity
+                            style={styles.buttonFavorites}
+                            onPress={() => { }}
+                        >
+                            <Icon name='star-o' size={25} color='#065' />
+                        </TouchableOpacity>
                         <Image
                             source={{ uri: image }}
                             resizeMode={"center"}
                             resizeMethod={'scale'}
-                            style={{
-                                width: 200,
-                                height: 200,
-                            }}
+                            style={styles.containerImage}
                         />
                         <Text style={styles.title}>{item.name}</Text>
                     </View>
@@ -63,5 +68,16 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
         marginBottom: 10,
+    },
+    containerImage: {
+        width: 200,
+        height: 200,
+    },
+    buttonFavorites: {
+        justifyContent: 'flex-end',
+        alignSelf: 'flex-end',
+        paddingTop: 15,
+        marginRight: 20,
+        zIndex: 1,
     }
 })

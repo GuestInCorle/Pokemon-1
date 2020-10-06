@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
-import { StyleProp, ViewStyle, View } from 'react-native'
+import { StyleProp, ViewStyle, View, StyleSheet } from 'react-native'
+import { FavoritesButtonComponent } from '../component/FavoritesButtonComponent'
 import { PokemonListComponent } from '../component/PokemonListComponent'
 import { fetchPokemon, pokemonStore } from '../store/pokemonStore'
 
@@ -17,6 +18,7 @@ export const PokemonListScreen: React.FC<PokemonListProps> = observer(props => {
     },[])
 
     return <View style={style}>
+        <FavoritesButtonComponent/>
         <PokemonListComponent data={pokemonStore.dataPokemon} />
     </View>
 })
