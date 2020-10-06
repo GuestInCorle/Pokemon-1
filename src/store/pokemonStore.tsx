@@ -8,6 +8,7 @@ class PokemonStore {
     dataPokemon: Pokemon[] = []
     favoritePokemon: Pokemon[] = []
 
+
     setKeyPokemon = (index: number) => {
         this.keyPokemon = index
     }
@@ -15,8 +16,11 @@ class PokemonStore {
         const result = await fetchPokemon()
         this.dataPokemon = result
     }
+    favorite = (item: Pokemon) => {
+        if (this.favoritePokemon.find((namePokemon) => { return namePokemon.name === item.name })) { return true } else return false
+    }
     addFavoritePokemon = (item: Pokemon) => {
-        this.favoritePokemon.push(item)
+        if (this.favoritePokemon.find((namePokemon) => { return namePokemon.name === item.name })) { return (console.log('Уже существует')) } else { return this.favoritePokemon.push(item) }
     }
     removeFavoritePokemon = (item: Pokemon) => {
         this.favoritePokemon = this.favoritePokemon.filter((namePokemon) => {
@@ -31,7 +35,8 @@ class PokemonStore {
             refresh: action,
             favoritePokemon: observable,
             addFavoritePokemon: action,
-            removeFavoritePokemon: action
+            removeFavoritePokemon: action,
+            favorite: action
 
         })
     }

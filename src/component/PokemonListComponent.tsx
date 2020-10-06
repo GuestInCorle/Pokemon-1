@@ -1,11 +1,12 @@
 import { useNavigation } from '@react-navigation/native'
 import { observer } from 'mobx-react'
-import React, { useCallback, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { StyleProp, ViewStyle, View, Text, Image, TouchableOpacity, FlatList, StyleSheet } from 'react-native'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { Pokemon } from '../store/Pokemon'
 import { pokemonStore } from '../store/pokemonStore'
+import { FavoriteIconComponent } from './FavoriteIconComponent'
 
 interface FlatlistPokemonProps {
     style?: StyleProp<ViewStyle>
@@ -16,8 +17,14 @@ export const PokemonListComponent: React.FC<FlatlistPokemonProps> = observer(pro
     const { style, data } = props
     let refIcon = useRef<Icon>(null)
     const navigation = useNavigation()
+    const [isFavorite, setFavorite] = useState(0)
+    useEffect(() => {
+        setFavorite(r => r + 1)
+    }, [pokemonStore.favoritePokemon])
 
     const renderItem = useCallback(({ item, index }) => {
+
+
         const image = 'https://gabbyapp.com/' + item.picture
         return (
             <View>
@@ -30,12 +37,13 @@ export const PokemonListComponent: React.FC<FlatlistPokemonProps> = observer(pro
                         <TouchableOpacity
                             style={styles.buttonFavorites}
                             onPress={() => {
-                                //pokemonStore.addFavoritePokemon(item)
-                                pokemonStore.removeFavoritePokemon(item)
+                                pokemonStore.favorite(item) ? pokemonStore.removeFavoritePokemon(item) : pokemonStore.addFavoritePokemon(item)
                                 console.log('favorite', pokemonStore.favoritePokemon)
                             }}
                         >
-                            <Icon name={'star'} size={25} color='#065' />
+                            <FavoriteIconComponent item={pokemonStore.favorite(item)}/>
+                            {/* <Icon name={pokemonStore.favorite(item) ? 'star' : 'star-o'} size={25} color='#065' /> */}
+
                         </TouchableOpacity>
                         <Image
                             source={{ uri: image }}
